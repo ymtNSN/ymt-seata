@@ -28,7 +28,7 @@ public class WebController {
 
 	@RequestMapping(value = "/findId")
 	public void findId(HttpServletResponse response) throws Exception {
-		//1.生成订单对象.....
+		//1.生成订单对象......
 		//2.进行支付下单
 		Map<String, String> stringStringMap = unifiedPlaceAnOrder.placeAnOrder(PayType.ZFB_APP,
 				"123456789101114", "0.01", "测试主题", "咖啡",
