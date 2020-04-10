@@ -49,7 +49,7 @@ public class DefaultAliPayClient {
      * @date: 2020/4/10
      */
     public Map<String, String> aliPayPlaceAnOrder(String outTradeNo, String totalAmount,
-                                                   String subject, String body,String applicationContextBeanName) throws Exception {
+                                                   String subject, String body,HandlerSuccessBeanName handlerSuccessBeanName) throws Exception {
         if (alipayClient == null){
             //为空才实例化客户端
             alipayClient = initClient();
