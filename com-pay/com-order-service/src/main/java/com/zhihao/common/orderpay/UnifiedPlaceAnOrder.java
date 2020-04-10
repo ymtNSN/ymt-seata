@@ -3,6 +3,7 @@ package com.zhihao.common.orderpay;
 import com.eshuix.common.orderpay.enums.PayType;
 import com.eshuix.common.orderpay.initclient.DefaultAliPayClient;
 import com.eshuix.common.orderpay.initclient.WXPayClient;
+import com.zhihao.common.orderpay.enums.HandlerSuccessBeanName;
 import com.zhihao.common.orderpay.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class UnifiedPlaceAnOrder  {
      * 支付-统一下单
      *
      * @param payType 支付类型
-     * @param applicationContextBeanName 异步通知成功状态后,业务逻辑处理实现类的bean名称
+     * @param handlerSuccessBeanName 异步通知成功状态后,业务逻辑处理实现类的bean名称
      * @param outTradeNo 订单号
      * @param totalAmount 金额
      * @param subject 商品主题
@@ -37,19 +38,19 @@ public class UnifiedPlaceAnOrder  {
      * @date: 2020/4/9
      */
     public Map<String,String> placeAnOrder(PayType payType, String outTradeNo, String totalAmount,
-                                           String subject, String body,String applicationContextBeanName) throws Exception {
+                                           String subject, String body, HandlerSuccessBeanName handlerSuccessBeanName) throws Exception {
         //校验下单参数
-        if (StringUtils.isAnyBlank(outTradeNo,applicationContextBeanName,totalAmount,subject,body)){
+        if (StringUtils.isAnyBlank(outTradeNo,handlerSuccessBeanName.getBeanName(),totalAmount,subject,body)){
             //抛出异常给全局异常处理
             throw new RuntimeException("下单参数不能为空");
         }
         Map<String,String> result = null;
         switch(payType) {
             case ZFB_APP:
-                result = aliPayClient.aliPayPlaceAnOrder(outTradeNo,totalAmount,subject,body,applicationContextBeanName);
+                result = aliPayClient.aliPayPlaceAnOrder(outTradeNo,totalAmount,subject,body,handlerSuccessBeanName);
                 break;
             case WX_APP:
-                result = wxPayClient.wXPayPlaceAnOrder(outTradeNo,applicationContextBeanName,totalAmount,body);
+                result = wxPayClient.wXPayPlaceAnOrder(outTradeNo,totalAmount,body,handlerSuccessBeanName);
                 break;
         }
         return result;

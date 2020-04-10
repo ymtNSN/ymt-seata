@@ -3,6 +3,7 @@ package com.zhihao.common.orderpay.initclient;
 import com.github.wxpay.sdk.WXPayConstants;
 import com.github.wxpay.sdk.WXPayUtil;
 import com.zhihao.common.orderpay.config.WXPayConfig;
+import com.zhihao.common.orderpay.enums.HandlerSuccessBeanName;
 import com.zhihao.common.orderpay.util.HttpsUtils;
 import com.zhihao.common.orderpay.util.PayUtil;
 import org.slf4j.Logger;
@@ -30,7 +31,7 @@ public class WXPayClient {
     /**
      * 微信App方式下单
      *
-     * @param applicationContextBeanName
+     * @param handlerSuccessBeanName
      * @param outTradeNo
      * @param totalAmount
      * @param body
@@ -38,8 +39,8 @@ public class WXPayClient {
      * @author: zhihao
      * @date: 2020/4/10
      */
-    public Map<String, String> wXPayPlaceAnOrder(String outTradeNo,String applicationContextBeanName,
-                                                 String totalAmount, String body) throws Exception {
+    public Map<String, String> wXPayPlaceAnOrder(String outTradeNo, String totalAmount,
+                                                 String body, HandlerSuccessBeanName handlerSuccessBeanName) throws Exception {
         //创建线程安全的Map
         Map<String, String> resultDate = new ConcurrentHashMap<>();
         //封装下单请求参数键值对
@@ -58,7 +59,7 @@ public class WXPayClient {
         reqData.put("total_fee", PayUtil.changeY2F(totalAmount));
         //设置applicationContextBeanName 上下文bean名称, 异步获取上下文bean处理成功业务
         //公用回传参数，如果请求时传递了该参数，则返回给商户时会回传该参数。微信会在异步通知时将该参数原样返回
-        reqData.put("attach", applicationContextBeanName);
+        reqData.put("attach", handlerSuccessBeanName.getBeanName());
         //终端IP 不知道怎么写可以写本地127.0.0.1 必填
         reqData.put("spbill_create_ip", "127.0.0.1");//客户端主机
         //异步回调通知地址通知url必须为外网可访问的url，不能携带参数   必填

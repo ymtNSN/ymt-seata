@@ -32,7 +32,7 @@ public class WebController {
 		//2.进行支付下单
 		Map<String, String> stringStringMap = unifiedPlaceAnOrder.placeAnOrder(PayType.ZFB_APP,
 				"123456789101114", "0.01", "测试主题", "咖啡",
-				HandlerSuccessBeanName.MEMBER_SUCCESS_HANDLER.getBeanName());
+				HandlerSuccessBeanName.MEMBER_SUCCESS_HANDLER);
 		response.setContentType("text/html;charset=UTF-8");
 		response.getWriter().write(stringStringMap.get("payData"));//直接将完整的表单html输出到页面
 		response.getWriter().flush();
