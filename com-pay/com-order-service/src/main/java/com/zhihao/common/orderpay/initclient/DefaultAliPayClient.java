@@ -69,9 +69,13 @@ public class DefaultAliPayClient {
         Model.setProductCode(productCode);
         //设置支付宝交易超时 取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天（1c-当天的情况下，无论交易何时创建，都在0点关闭）
         Model.setTimeoutExpress(aliPayConfig.getTimeoutExpress());
+        String beanName = handlerSuccessBeanName.getBeanName();
+        if (SpringContextHolder.getBean(beanName) == null) {
+            throw new NoSuchBeanDefinitionException("没有找到支付成功处理Bean" + beanName);
+        }
         //设置applicationContextBeanName 上下文bean名称, 异步获取上下文bean处理成功业务
         //公用回传参数，如果请求时传递了该参数，则返回给商户时会回传该参数。支付宝会在异步通知时将该参数原样返回。本参数必须进行 UrlEncode 之后才可以发送给支付宝
-        Model.setPassbackParams(URLEncoder.encode(handlerSuccessBeanName.getBeanName(), "UTF-8"));
+        model.setPassbackParams(URLEncoder.encode(beanName, "UTF-8"));
         //创建阿里请求对象 (和扫码创建的对象不同这里是App)
         AlipayTradeAppPayRequest alipayTradeAppPayRequest = new AlipayTradeAppPayRequest();
         //业务请求参数的集合
