@@ -57,9 +57,13 @@ public class WXPayClient {
         reqData.put("out_trade_no", outTradeNo);
         //支付总金额 (将元转换为分) 必填  使用自己工具类进行转换
         reqData.put("total_fee", PayUtil.changeY2F(totalAmount));
+        String beanName = handlerSuccessBeanName.getBeanName();
+        if (SpringContextHolder.getBean(beanName) == null) {
+            throw new NoSuchBeanDefinitionException("没有找到支付成功处理Bean" + beanName);
+        }
         //设置applicationContextBeanName 上下文bean名称, 异步获取上下文bean处理成功业务
         //公用回传参数，如果请求时传递了该参数，则返回给商户时会回传该参数。微信会在异步通知时将该参数原样返回
-        reqData.put("attach", handlerSuccessBeanName.getBeanName());
+        reqData.put("attach", beanName);
         //终端IP 不知道怎么写可以写本地127.0.0.1 必填
         reqData.put("spbill_create_ip", "127.0.0.1");//客户端主机
         //异步回调通知地址通知url必须为外网可访问的url，不能携带参数   必填
