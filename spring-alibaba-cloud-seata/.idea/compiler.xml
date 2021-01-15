@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="seata-storage-service" />
+        <module name="seata-account-service" />
+        <module name="seata-order-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel target="8">
+      <module name="seata-account-service" target="1.8" />
+      <module name="seata-order-service" target="1.8" />
+      <module name="seata-storage-service" target="1.8" />
+      <module name="spring-alibaba-cloud-seata" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

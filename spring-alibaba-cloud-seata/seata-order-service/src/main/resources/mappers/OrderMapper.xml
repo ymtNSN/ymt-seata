@@ -3,8 +3,7 @@
 <mapper namespace="com.zhihao.dao.OrderMapper">
 
     <insert id="addOrder" keyProperty="id" useGeneratedKeys="true" parameterType="order">
-        insert into order_tbl
-        (user_id,commodity_code,count,money) values (#{userId},#{commodityCode},#{count},#{amount})
+        insert into `order` (user_id,commodity_code,`count`,money) values (#{userId},#{commodityCode},#{count},#{amount})
     </insert>
 
 </mapper>

@@ -3,10 +3,10 @@
 <mapper namespace="com.zhihao.dao.StorageMapper">
 
     <update id="updatedStorage" parameterType="storage">
-        update storage_tbl set count = #{count} WHERE id = #{id}
+        update storage set count = #{count} WHERE id = #{id}
     </update>
 
     <select id="findStorageByCommodityCode" resultType="storage">
-        select * from storage_tbl where commodity_code = #{commodityCode}
+        select * from storage where commodity_code = #{commodityCode}
     </select>
 </mapper>
