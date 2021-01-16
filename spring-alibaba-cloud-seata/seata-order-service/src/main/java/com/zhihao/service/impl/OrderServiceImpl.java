@@ -6,6 +6,7 @@ import com.zhihao.entity.Order;
 import com.zhihao.feginClients.AccountFegin;
 import com.zhihao.feginClients.StorageFegin;
 import com.zhihao.service.OrderService;
+import io.seata.spring.annotation.GlobalLock;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,7 @@ public class OrderServiceImpl implements OrderService {
 
     //@Transactional 替换成为全局事务
     @GlobalTransactional(name = "orderService-create",rollbackFor = Exception.class)
+//    @GlobalLock
     @Override
     public int addOrder(Order order) {
         order.setCount(3);
